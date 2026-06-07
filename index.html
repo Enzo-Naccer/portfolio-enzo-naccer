@@ -5,912 +5,955 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Enzo Naccer — Product & Learning Experience Specialist</title>
   <meta name="description" content="Portfolio de Enzo Naccer — Product Designer, UX/UI, EdTech y Accesibilidad Digital. Buenos Aires, Argentina." />
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <style>
-    /* ── TOKENS ─────────────────────────────────────────────── */
-    :root {
-      --ink:       #0D0D1A;
-      --ink-soft:  #3D3D5C;
-      --ink-muted: #8888AA;
-      --bg:        #F7F6F2;
-      --bg-warm:   #EEEAE0;
-      --accent:    #3A2FFF;
-      --accent2:   #FF3A6E;
-      --accent3:   #00C9A7;
-      --surface:   #FFFFFF;
-      --border:    rgba(13,13,26,0.10);
-      --mono:      'DM Mono', monospace;
-      --sans:      'DM Sans', sans-serif;
-      --display:   'Syne', sans-serif;
-    }
+<style>
+/* ── TOKENS ─────────────────────────────────────── */
+:root {
+  --bg:           #F5F2ED;
+  --bg2:          #EDEAE3;
+  --bg3:          #E6E2D8;
+  --surface:      #FDFCF9;
+  --fg:           #1A1A18;
+  --fg2:          #4A4A46;
+  --fg3:          #888880;
+  --accent:       #2D5F3F;
+  --accent2:      #4A9E6B;
+  --accent-light: #E4F0E9;
+  --accent-mid:   #C2DFD0;
+  --border:       rgba(26,26,24,0.09);
+  --border2:      rgba(26,26,24,0.15);
+  --serif:        'DM Serif Display', Georgia, serif;
+  --sans:         'DM Sans', system-ui, sans-serif;
+  --mono:         'DM Mono', monospace;
+  --radius:       14px;
+  --shadow-sm:    0 2px 8px rgba(26,26,24,0.06);
+  --shadow-md:    0 8px 32px rgba(26,26,24,0.09);
+  --shadow-lg:    0 20px 60px rgba(26,26,24,0.12);
+  --transition:   0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-    /* ── RESET ──────────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--ink);
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
-    ::selection { background: var(--accent); color: #fff; }
+/* ── RESET ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+::selection { background: var(--accent-mid); color: var(--fg); }
 
-    /* ── CURSOR PERSONALIZADO ───────────────────────────────── */
-    .cursor {
-      width: 12px; height: 12px;
-      background: var(--accent);
-      border-radius: 50%;
-      position: fixed; top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.15s ease, width 0.2s, height 0.2s, background 0.2s;
-      mix-blend-mode: multiply;
-    }
-    .cursor.grow { width: 40px; height: 40px; transform: translate(-14px, -14px); }
-    @media (hover: none) { .cursor { display: none; } }
+/* ── CURSOR ─────────────────────────────────────── */
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transition: width 0.2s, height 0.2s, opacity 0.2s;
+  mix-blend-mode: multiply;
+  opacity: 0.7;
+}
+.cursor.grow { width: 32px; height: 32px; opacity: 0.18; }
+@media (hover: none) { .cursor { display: none; } }
 
-    /* ── NAV ────────────────────────────────────────────────── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.25rem 3rem;
-      background: rgba(247,246,242,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      transition: padding 0.3s;
-    }
-    .nav-logo {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: 1.1rem;
-      letter-spacing: -0.02em;
-    }
-    .nav-logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--ink-soft);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-      position: relative;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute; bottom: -3px; left: 0;
-      width: 0; height: 2px;
-      background: var(--accent);
-      transition: width 0.3s;
-    }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-cta {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.55rem 1.25rem;
-      background: var(--ink);
-      color: #fff;
-      border-radius: 100px;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+/* ── NAV ────────────────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(245,242,237,0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+  transition: box-shadow var(--transition);
+}
+nav.scrolled { box-shadow: var(--shadow-sm); }
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+}
+.nav-logo em { font-style: normal; color: var(--accent); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--fg2);
+  letter-spacing: 0.01em;
+  position: relative;
+  transition: color var(--transition);
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -2px; left: 0;
+  width: 0; height: 1.5px;
+  background: var(--accent);
+  transition: width var(--transition);
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+.nav-links a.active { color: var(--accent); }
+.nav-cta {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background var(--transition), transform var(--transition);
+}
+.nav-cta:hover { background: #234a30; transform: translateY(-1px); }
 
-    /* ── HERO ───────────────────────────────────────────────── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding-top: 80px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 4rem 3rem 4rem 3rem;
-      position: relative;
-      z-index: 2;
-    }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-      opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
-    }
-    .hero-tag::before {
-      content: '';
-      display: inline-block; width: 32px; height: 2px;
-      background: var(--accent);
-    }
-    .hero-h1 {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-      margin-bottom: 1.75rem;
-      opacity: 0; animation: fadeUp 0.7s 0.35s forwards;
-    }
-    .hero-h1 em {
-      font-style: normal;
-      color: var(--accent);
-      position: relative;
-    }
-    .hero-h1 em::after {
-      content: '';
-      position: absolute; bottom: 4px; left: 0; right: 0;
-      height: 6px;
-      background: var(--accent2);
-      opacity: 0.25;
-      z-index: -1;
-    }
-    .hero-desc {
-      font-size: 1.05rem;
-      color: var(--ink-soft);
-      line-height: 1.7;
-      max-width: 440px;
-      margin-bottom: 2.5rem;
-      font-weight: 300;
-      opacity: 0; animation: fadeUp 0.7s 0.5s forwards;
-    }
-    .hero-actions {
-      display: flex; gap: 1rem; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp 0.7s 0.65s forwards;
-    }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.85rem 2rem;
-      background: var(--ink);
-      color: #fff;
-      border-radius: 100px;
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    }
-    .btn-primary:hover {
-      background: var(--accent);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(58,47,255,0.25);
-    }
-    .btn-secondary {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.85rem 2rem;
-      border: 1.5px solid var(--border);
-      border-radius: 100px;
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      transition: border-color 0.2s, color 0.2s, transform 0.15s;
-    }
-    .btn-secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
-    .hero-stats {
-      display: flex; gap: 2.5rem; margin-top: 3.5rem;
-      opacity: 0; animation: fadeUp 0.7s 0.8s forwards;
-    }
-    .stat-item { display: flex; flex-direction: column; }
-    .stat-num {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: 2rem;
-      color: var(--ink);
-      line-height: 1;
-    }
-    .stat-num span { color: var(--accent); }
-    .stat-label {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--ink-muted);
-      margin-top: 0.25rem;
-    }
+/* ── HERO ───────────────────────────────────────── */
+.hero {
+  min-height: calc(100vh - 64px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 5rem 8% 4rem;
+  gap: 4rem;
+  position: relative;
+}
+/* textura sutil de fondo */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(45,95,63,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
 
-    .hero-right {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .hero-visual {
-      width: 100%; height: 100%;
-      background: var(--ink);
-      position: relative;
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-    }
-    /* Grid decorativo animado */
-    .hero-grid {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(58,47,255,0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(58,47,255,0.08) 1px, transparent 1px);
-      background-size: 48px 48px;
-      animation: gridPan 20s linear infinite;
-    }
-    @keyframes gridPan {
-      0%   { transform: translate(0,0); }
-      100% { transform: translate(48px, 48px); }
-    }
-    .hero-card-floating {
-      position: relative; z-index: 2;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px;
-      padding: 2.5rem;
-      backdrop-filter: blur(10px);
-      width: 340px;
-      animation: float 6s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-14px); }
-    }
-    .card-label {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 1.25rem;
-    }
-    .card-skills {
-      display: flex; flex-wrap: wrap; gap: 0.5rem;
-      margin-bottom: 1.75rem;
-    }
-    .chip {
-      padding: 0.3rem 0.75rem;
-      border-radius: 100px;
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.04em;
-    }
-    .chip-blue { background: rgba(58,47,255,0.3); color: #A5B4FC; border: 1px solid rgba(58,47,255,0.4); }
-    .chip-pink { background: rgba(255,58,110,0.2); color: #FCA5C0; border: 1px solid rgba(255,58,110,0.3); }
-    .chip-green { background: rgba(0,201,167,0.2); color: #6EE7D7; border: 1px solid rgba(0,201,167,0.3); }
-    .chip-white { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.1); }
-    .card-divider {
-      height: 1px;
-      background: rgba(255,255,255,0.07);
-      margin: 1.25rem 0;
-    }
-    .card-role {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 1.25rem;
-      color: #fff;
-      line-height: 1.2;
-      margin-bottom: 0.5rem;
-    }
-    .card-loc {
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.4);
-      display: flex; align-items: center; gap: 0.35rem;
-    }
-    /* Dot pulsante */
-    .dot-live {
-      width: 7px; height: 7px;
-      background: var(--accent3);
-      border-radius: 50%;
-      display: inline-block;
-      position: relative;
-    }
-    .dot-live::after {
-      content: '';
-      position: absolute; inset: -3px;
-      border-radius: 50%;
-      background: var(--accent3);
-      opacity: 0.3;
-      animation: pulse 2s ease-out infinite;
-    }
-    @keyframes pulse {
-      0%   { transform: scale(1); opacity: 0.4; }
-      100% { transform: scale(2.5); opacity: 0; }
-    }
+.hero-left { position: relative; z-index: 1; }
 
-    /* ── SECCIÓN GENÉRICA ───────────────────────────────────── */
-    section { padding: 6rem 3rem; }
-    .section-tag {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .section-tag::before {
-      content: '';
-      display: inline-block;
-      width: 24px; height: 2px;
-      background: var(--accent);
-    }
-    .section-title {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin-bottom: 1rem;
-    }
-    .section-sub {
-      font-size: 1rem;
-      color: var(--ink-soft);
-      font-weight: 300;
-      max-width: 520px;
-      line-height: 1.7;
-    }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 0.5s 0.1s forwards;
+}
+.hero-tag-dot {
+  width: 6px; height: 6px;
+  background: var(--accent2);
+  border-radius: 50%;
+  animation: blink 2.5s ease-in-out infinite;
+}
+@keyframes blink {
+  0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+}
 
-    /* ── ABOUT ──────────────────────────────────────────────── */
-    #about { background: var(--surface); }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 5rem;
-      align-items: center;
-      max-width: 1100px; margin: 0 auto;
-    }
-    .about-visual {
-      position: relative;
-    }
-    .about-box {
-      background: var(--ink);
-      border-radius: 20px;
-      padding: 3rem;
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-    }
-    .about-box::before {
-      content: '';
-      position: absolute; top: -60px; right: -60px;
-      width: 200px; height: 200px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(58,47,255,0.4), transparent 70%);
-    }
-    .about-quote {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 1.4rem;
-      line-height: 1.35;
-      margin-bottom: 1.5rem;
-      position: relative; z-index: 1;
-    }
-    .about-quote em {
-      font-style: normal;
-      color: #A5B4FC;
-    }
-    .about-tag-row {
-      display: flex; gap: 0.5rem; flex-wrap: wrap;
-      position: relative; z-index: 1;
-    }
-    .about-content {}
-    .about-content .section-title { margin-bottom: 1.5rem; }
-    .about-text {
-      font-size: 0.97rem;
-      color: var(--ink-soft);
-      line-height: 1.75;
-      font-weight: 300;
-      margin-bottom: 1.25rem;
-    }
-    .about-text b { color: var(--ink); font-weight: 500; }
-    .about-values {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1rem; margin-top: 2rem;
-    }
-    .value-item {
-      display: flex; gap: 0.75rem; align-items: flex-start;
-    }
-    .value-icon {
-      width: 36px; height: 36px; border-radius: 8px;
-      background: var(--bg);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; flex-shrink: 0;
-    }
-    .value-text { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.5; }
-    .value-text b { display: block; font-size: 0.9rem; color: var(--ink); margin-bottom: 0.1rem; }
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 5vw, 4.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 0.6s 0.25s forwards;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
 
-    /* ── PROYECTOS ──────────────────────────────────────────── */
-    #proyectos { background: var(--bg); }
-    .projects-header {
-      max-width: 1100px; margin: 0 auto 3.5rem;
-      display: flex; justify-content: space-between; align-items: flex-end;
-    }
-    .projects-grid {
-      max-width: 1100px; margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 1.25rem;
-    }
+.hero-desc {
+  font-size: 1.05rem;
+  color: var(--fg2);
+  line-height: 1.85;
+  max-width: 480px;
+  margin-bottom: 2.25rem;
+  font-weight: 300;
+  opacity: 0; animation: fadeUp 0.6s 0.4s forwards;
+}
 
-    /* Card de proyecto */
-    .proj-card {
-      background: var(--surface);
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-      display: flex; flex-direction: column;
-    }
-    .proj-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(13,13,26,0.1);
-    }
-    .proj-card.wide   { grid-column: span 7; }
-    .proj-card.narrow { grid-column: span 5; }
-    .proj-card.full   { grid-column: span 12; }
-    .proj-card.half   { grid-column: span 6; }
+.hero-actions {
+  display: flex; gap: 0.9rem; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.6s 0.55s forwards;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 13px 26px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.btn-primary:hover {
+  background: #234a30;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45,95,63,0.25);
+}
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 13px 26px;
+  border: 1.5px solid var(--border2);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--fg2);
+  transition: border-color var(--transition), color var(--transition), transform var(--transition);
+}
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
 
-    .proj-thumb {
-      height: 220px;
-      position: relative;
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .proj-thumb-innova  { background: linear-gradient(135deg, #0D0D1A 0%, #1a1060 100%); }
-    .proj-thumb-mates   { background: linear-gradient(135deg, #2D1A00 0%, #7C4A03 100%); }
-    .proj-thumb-consejo { background: linear-gradient(135deg, #00213A 0%, #004E8C 100%); }
-    .proj-thumb-lxd     { background: linear-gradient(135deg, #1A001A 0%, #5C0060 100%); }
+.hero-stats {
+  display: flex; gap: 2rem; margin-top: 3rem;
+  opacity: 0; animation: fadeUp 0.6s 0.7s forwards;
+}
+.stat-item {}
+.stat-num {
+  font-family: var(--serif);
+  font-size: 2rem;
+  color: var(--accent);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--fg3);
+  margin-top: 0.2rem;
+  letter-spacing: 0.02em;
+}
 
-    .proj-thumb-pattern {
-      position: absolute; inset: 0;
-      opacity: 0.12;
-      background-image: radial-gradient(circle, #fff 1px, transparent 1px);
-      background-size: 24px 24px;
-    }
-    .proj-thumb-icon {
-      position: relative; z-index: 1;
-      font-size: 3rem;
-      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5));
-    }
-    .proj-badge {
-      position: absolute; top: 14px; left: 14px;
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.7rem;
-      border-radius: 100px;
-      color: #fff;
-    }
-    .badge-live   { background: rgba(0,201,167,0.7); backdrop-filter: blur(4px); }
-    .badge-design { background: rgba(58,47,255,0.7); backdrop-filter: blur(4px); }
-    .badge-edu    { background: rgba(255,58,110,0.65); backdrop-filter: blur(4px); }
+/* Hero card derecha */
+.hero-right {
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1;
+  opacity: 0; animation: fadeUp 0.7s 0.5s forwards;
+}
+.hero-card {
+  background: var(--surface);
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  padding: 2rem;
+  width: 100%; max-width: 360px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+.avatar-ring {
+  width: 72px; height: 72px;
+  background: var(--accent-light);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  box-shadow: 0 0 0 4px var(--surface), 0 0 0 6px var(--accent-mid);
+}
+.hero-card-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.2rem; }
+.hero-card-role { font-size: 0.82rem; color: var(--fg3); margin-bottom: 1.5rem; }
+.card-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.6rem; margin-bottom: 1.25rem; }
+.card-stat {
+  background: var(--bg2);
+  border-radius: 10px;
+  padding: 0.65rem;
+  text-align: center;
+}
+.card-stat .n { font-family: var(--serif); font-size: 1.3rem; color: var(--accent); line-height: 1; }
+.card-stat .l { font-size: 0.68rem; color: var(--fg3); margin-top: 2px; }
+.card-divider { height: 1px; background: var(--border); margin: 1rem 0; }
+.card-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.card-chip {
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+.card-chip.neutral {
+  background: var(--bg2);
+  color: var(--fg2);
+}
+/* badge flotante */
+.float-badge {
+  position: absolute;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+  animation: floatY 4s ease-in-out infinite;
+}
+.float-badge.top { top: -14px; right: -10px; animation-delay: 0s; }
+.float-badge.bot { bottom: -14px; left: -10px; animation-delay: 2s; }
+@keyframes floatY {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+.badge-dot-green { width: 7px; height: 7px; background: var(--accent2); border-radius: 50%; }
+.badge-dot-amber { width: 7px; height: 7px; background: #E09C3A; border-radius: 50%; }
 
-    .proj-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
-    .proj-category {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-      margin-bottom: 0.5rem;
-    }
-    .proj-title {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 1.15rem;
-      line-height: 1.25;
-      margin-bottom: 0.6rem;
-      letter-spacing: -0.02em;
-    }
-    .proj-desc {
-      font-size: 0.85rem;
-      color: var(--ink-soft);
-      line-height: 1.65;
-      font-weight: 300;
-      flex: 1;
-    }
-    .proj-footer {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-top: 1.25rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
-    }
-    .proj-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-    .proj-tag {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      padding: 0.2rem 0.55rem;
-      background: var(--bg);
-      border-radius: 100px;
-      color: var(--ink-soft);
-      border: 1px solid var(--border);
-    }
-    .proj-link {
-      width: 32px; height: 32px;
-      background: var(--ink);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: #fff;
-      font-size: 0.8rem;
-      transition: background 0.2s, transform 0.15s;
-      flex-shrink: 0;
-    }
-    .proj-link:hover { background: var(--accent); transform: scale(1.1); }
+/* ── SECCIÓN GENÉRICA ───────────────────────────── */
+section { padding: 5.5rem 8%; }
+.section-label {
+  font-size: 0.73rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 0.6rem;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+.section-sub {
+  color: var(--fg2);
+  font-size: 1rem;
+  line-height: 1.8;
+  max-width: 560px;
+  font-weight: 300;
+}
 
-    /* ── SKILLS ─────────────────────────────────────────────── */
-    #skills { background: var(--ink); color: #fff; }
-    #skills .section-title { color: #fff; }
-    #skills .section-sub   { color: rgba(255,255,255,0.5); }
-    #skills .section-tag   { color: #A5B4FC; }
-    #skills .section-tag::before { background: #A5B4FC; }
+/* ── ABOUT ──────────────────────────────────────── */
+#about { background: var(--surface); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 5rem; align-items: start;
+  max-width: 1140px; margin: 0 auto;
+}
+.about-quote-block {
+  background: var(--accent);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.about-quote-block::after {
+  content: '"';
+  font-family: var(--serif);
+  font-size: 12rem;
+  color: rgba(255,255,255,0.07);
+  position: absolute;
+  bottom: -2rem; right: 1rem;
+  line-height: 1;
+  pointer-events: none;
+}
+.quote-text {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  line-height: 1.45;
+  margin-bottom: 1.5rem;
+  position: relative; z-index: 1;
+  font-style: italic;
+}
+.quote-chips {
+  display: flex; flex-wrap: wrap; gap: 0.45rem;
+  position: relative; z-index: 1;
+}
+.quote-chip {
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.18);
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-weight: 500;
+}
 
-    .skills-layout {
-      max-width: 1100px; margin: 3rem auto 0;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-    }
-    .skill-group { margin-bottom: 2rem; }
-    .skill-group-title {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 1rem;
-    }
-    .skill-bars { display: flex; flex-direction: column; gap: 0.75rem; }
-    .skill-row { display: flex; flex-direction: column; gap: 0.3rem; }
-    .skill-meta {
-      display: flex; justify-content: space-between;
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.75);
-    }
-    .skill-pct {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.35);
-    }
-    .skill-track {
-      height: 4px;
-      background: rgba(255,255,255,0.07);
-      border-radius: 100px;
-      overflow: hidden;
-    }
-    .skill-fill {
-      height: 100%;
-      border-radius: 100px;
-      background: linear-gradient(90deg, var(--accent), var(--accent3));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .skill-fill.animated { transform: scaleX(1); }
+.about-right {}
+.about-right .section-title { margin-bottom: 1.25rem; }
+.about-text {
+  color: var(--fg2);
+  line-height: 1.85;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  font-size: 0.97rem;
+}
+.about-text b { color: var(--fg); font-weight: 600; }
+.about-values {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.9rem; margin-top: 1.75rem;
+}
+.value-card {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.value-card:hover {
+  border-color: var(--accent-mid);
+  box-shadow: var(--shadow-sm);
+}
+.value-icon { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.value-title { font-weight: 600; font-size: 0.88rem; color: var(--fg); margin-bottom: 0.2rem; }
+.value-desc { font-size: 0.8rem; color: var(--fg3); line-height: 1.5; }
 
-    .skills-tags-block { margin-top: 1rem; }
-    .skill-tag-title {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 0.75rem;
-    }
-    .tag-cloud { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .tag-pill {
-      padding: 0.35rem 0.85rem;
-      border-radius: 100px;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      background: rgba(255,255,255,0.05);
-      color: rgba(255,255,255,0.6);
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: background 0.2s, color 0.2s;
-    }
-    .tag-pill:hover {
-      background: rgba(58,47,255,0.3);
-      color: #A5B4FC;
-      border-color: rgba(58,47,255,0.4);
-    }
+/* Certs */
+.about-certs { margin-top: 1.75rem; }
+.cert-label {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--fg3); margin-bottom: 0.75rem;
+}
+.cert-item {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.cert-item:last-child { border-bottom: none; }
+.cert-bar { width: 3px; border-radius: 100px; background: var(--accent-mid); flex-shrink: 0; align-self: stretch; }
+.cert-title { font-size: 0.88rem; font-weight: 600; color: var(--fg); margin-bottom: 0.1rem; }
+.cert-org { font-size: 0.78rem; color: var(--fg3); }
 
-    /* ── EXPERIENCIA TIMELINE ───────────────────────────────── */
-    #experiencia { background: var(--surface); }
-    .timeline {
-      max-width: 760px; margin: 3rem auto 0;
-      position: relative;
-    }
-    .timeline::before {
-      content: '';
-      position: absolute; left: 14px; top: 0; bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-    }
-    .timeline-item {
-      padding-left: 52px;
-      position: relative;
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      transform: translateX(-16px);
-      transition: opacity 0.5s, transform 0.5s;
-    }
-    .timeline-item.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    .timeline-dot {
-      position: absolute; left: 4px; top: 5px;
-      width: 22px; height: 22px;
-      border-radius: 50%;
-      background: var(--surface);
-      border: 2px solid var(--accent);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.7rem;
-    }
-    .tl-date {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.35rem;
-    }
-    .tl-title {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 1.05rem;
-      margin-bottom: 0.2rem;
-    }
-    .tl-company {
-      font-size: 0.85rem;
-      color: var(--ink-muted);
-      font-style: italic;
-      margin-bottom: 0.75rem;
-    }
-    .tl-desc {
-      font-size: 0.88rem;
-      color: var(--ink-soft);
-      line-height: 1.7;
-      font-weight: 300;
-    }
-    .tl-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.75rem; }
-    .tl-tag {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      padding: 0.2rem 0.55rem;
-      background: var(--bg);
-      border-radius: 100px;
-      color: var(--ink-soft);
-      border: 1px solid var(--border);
-    }
+/* ── PROYECTOS ──────────────────────────────────── */
+#proyectos { background: var(--bg); }
+.proj-header {
+  max-width: 1140px; margin: 0 auto 3rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 2rem;
+}
+.proj-header .section-sub { margin-bottom: 0; max-width: 380px; }
+.projects-grid {
+  max-width: 1140px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.25rem;
+}
+.proj-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.proj-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-mid);
+}
+.proj-card.wide   { grid-column: span 7; }
+.proj-card.narrow { grid-column: span 5; }
+.proj-card.half   { grid-column: span 6; }
 
-    /* ── CONTACTO ───────────────────────────────────────────── */
-    #contacto {
-      background: var(--bg-warm);
-      text-align: center;
-    }
-    .contact-inner {
-      max-width: 640px; margin: 0 auto;
-    }
-    .contact-inner .section-tag { justify-content: center; }
-    .contact-inner .section-tag::before { display: none; }
-    .contact-inner .section-title { margin-bottom: 1rem; }
-    .contact-inner .section-sub {
-      max-width: none;
-      margin-bottom: 2.5rem;
-    }
-    .contact-email {
-      display: inline-block;
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: clamp(1.2rem, 3vw, 1.8rem);
-      color: var(--accent);
-      margin-bottom: 2.5rem;
-      letter-spacing: -0.02em;
-      border-bottom: 3px solid var(--accent2);
-      padding-bottom: 0.25rem;
-      transition: color 0.2s;
-    }
-    .contact-email:hover { color: var(--accent2); }
-    .contact-links {
-      display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap;
-    }
-    .contact-link {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border: 1.5px solid var(--border);
-      border-radius: 100px;
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      transition: all 0.2s;
-    }
-    .contact-link:hover {
-      border-color: var(--ink);
-      color: var(--ink);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(13,13,26,0.08);
-    }
+/* Thumbs con paleta de colores de la referencia */
+.proj-thumb {
+  height: 200px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+  position: relative; overflow: hidden;
+}
+.thumb-green { background: var(--accent-light); color: var(--accent); }
+.thumb-amber { background: #FEF3E2; color: #A05C1A; }
+.thumb-blue  { background: #EBF3FB; color: #1A5FA0; }
+.thumb-sage  { background: #EDF2EE; color: #3A5C42; }
+/* textura sutil en thumbs */
+.proj-thumb::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+.proj-thumb-text { position: relative; z-index: 1; }
+.proj-badge {
+  position: absolute; top: 12px; left: 12px;
+  font-family: var(--mono);
+  font-size: 0.65rem; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 100px;
+}
+.badge-live   { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+.badge-wip    { background: #FEF3E2; color: #A05C1A; border: 1px solid #F5DCBA; }
+.badge-edu    { background: #EBF3FB; color: #1A5FA0; border: 1px solid #C0D9F0; }
 
-    /* ── FOOTER ─────────────────────────────────────────────── */
-    footer {
-      background: var(--ink);
-      color: rgba(255,255,255,0.4);
-      text-align: center;
-      padding: 2rem 3rem;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    footer span { color: rgba(255,255,255,0.2); }
-    .footer-brand {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: 1rem;
-      color: #fff;
-    }
-    .footer-brand em { color: var(--accent); font-style: normal; }
+.proj-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+.proj-role {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--accent2); margin-bottom: 0.4rem;
+}
+.proj-title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.25;
+  color: var(--fg);
+  margin-bottom: 0.5rem;
+}
+.proj-desc {
+  font-size: 0.87rem;
+  color: var(--fg2);
+  line-height: 1.7;
+  font-weight: 300;
+  flex: 1;
+}
+.proj-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.proj-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.proj-tag {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 9px;
+  font-size: 0.72rem;
+  color: var(--fg2);
+}
+.proj-link-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+  transition: gap var(--transition), color var(--transition);
+}
+.proj-link-btn:hover { gap: 8px; color: #234a30; }
 
-    /* ── ANIMACIONES ────────────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s, transform 0.6s;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+/* ── SKILLS ─────────────────────────────────────── */
+#skills { background: var(--surface); }
+.skills-inner { max-width: 1140px; margin: 0 auto; }
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+.skill-group {
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  transition: border-color var(--transition);
+}
+.skill-group:hover { border-color: var(--accent-mid); }
+.skill-group-title {
+  font-weight: 600; font-size: 0.88rem;
+  color: var(--fg); margin-bottom: 1.1rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.skill-group-title span { font-size: 1rem; }
+.skill-item { margin-bottom: 0.9rem; }
+.skill-item:last-child { margin-bottom: 0; }
+.skill-label {
+  display: flex; justify-content: space-between;
+  font-size: 0.83rem; color: var(--fg2); margin-bottom: 5px;
+}
+.skill-pct { font-family: var(--mono); font-size: 0.75rem; color: var(--fg3); }
+.skill-track {
+  height: 4px;
+  background: var(--border2);
+  border-radius: 100px; overflow: hidden;
+}
+.skill-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skill-fill.on { transform: scaleX(1); }
 
-    /* ── RESPONSIVE ─────────────────────────────────────────── */
-    @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-left { padding: 6rem 1.5rem 3rem; }
-      .hero-right { display: none; }
-      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .proj-card.wide, .proj-card.narrow, .proj-card.half, .proj-card.full { grid-column: span 1; }
-      .skills-layout { grid-template-columns: 1fr; gap: 1.5rem; }
-      section { padding: 4rem 1.5rem; }
-      .projects-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-    }
-  </style>
+/* Tags herramientas */
+.tools-block { margin-top: 2rem; }
+.tools-label {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--fg3); margin-bottom: 0.75rem;
+}
+.tools-cloud { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.tool-pill {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 0.8rem;
+  color: var(--fg2);
+  font-weight: 500;
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+}
+.tool-pill:hover {
+  background: var(--accent-light);
+  border-color: var(--accent-mid);
+  color: var(--accent);
+}
+
+/* ── EXPERIENCIA ────────────────────────────────── */
+#experiencia { background: var(--bg); }
+.exp-inner { max-width: 1140px; margin: 0 auto; }
+.exp-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 4rem;
+  margin-top: 2.5rem;
+}
+/* Columna izquierda — lista de empresas */
+.exp-nav { position: sticky; top: 84px; align-self: start; }
+.exp-nav-item {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.3rem;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  border: 1px solid transparent;
+}
+.exp-nav-item.active {
+  background: var(--accent-light);
+  border-color: var(--accent-mid);
+}
+.exp-nav-item:hover:not(.active) { background: var(--bg2); }
+.exp-nav-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  background: var(--border2);
+  transition: background var(--transition);
+}
+.exp-nav-item.active .exp-nav-dot { background: var(--accent); }
+.exp-nav-name { font-size: 0.88rem; font-weight: 500; color: var(--fg2); }
+.exp-nav-item.active .exp-nav-name { color: var(--accent); font-weight: 600; }
+.exp-nav-date { font-size: 0.75rem; color: var(--fg3); margin-left: auto; font-family: var(--mono); }
+
+/* Panel derecho */
+.exp-panels { position: relative; }
+.exp-panel { display: none; }
+.exp-panel.active { display: block; }
+.exp-panel-role {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.3rem;
+}
+.exp-panel-company {
+  font-size: 0.9rem;
+  color: var(--accent2);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.exp-panel-date {
+  font-size: 0.8rem;
+  color: var(--fg3);
+  font-family: var(--mono);
+  margin-bottom: 1.5rem;
+}
+.exp-panel-desc {
+  color: var(--fg2);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  font-weight: 300;
+  margin-bottom: 1.25rem;
+}
+.exp-bullets { list-style: none; margin-bottom: 1.25rem; }
+.exp-bullets li {
+  display: flex; gap: 0.75rem;
+  font-size: 0.9rem; color: var(--fg2);
+  line-height: 1.7; margin-bottom: 0.5rem;
+  font-weight: 300;
+}
+.exp-bullets li::before {
+  content: '→';
+  color: var(--accent2);
+  flex-shrink: 0;
+  font-weight: 600;
+  margin-top: 0.05rem;
+}
+.exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.exp-tag {
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid var(--accent-mid);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* ── CONTACTO ───────────────────────────────────── */
+#contacto {
+  background: var(--accent);
+  color: #fff;
+  text-align: center;
+}
+#contacto .section-label { color: rgba(255,255,255,0.55); }
+#contacto .section-title { color: #fff; margin-bottom: 0.75rem; }
+.contact-inner { max-width: 600px; margin: 0 auto; }
+.contact-desc {
+  color: rgba(255,255,255,0.75);
+  line-height: 1.8;
+  font-size: 1rem;
+  font-weight: 300;
+  margin-bottom: 2.25rem;
+}
+.contact-email-link {
+  display: inline-block;
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: #fff;
+  border-bottom: 2px solid rgba(255,255,255,0.3);
+  padding-bottom: 4px;
+  margin-bottom: 2.25rem;
+  transition: border-color var(--transition);
+  letter-spacing: -0.01em;
+}
+.contact-email-link:hover { border-color: #fff; }
+.contact-links {
+  display: flex; justify-content: center;
+  gap: 0.75rem; flex-wrap: wrap;
+}
+.contact-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  border: 1px solid rgba(255,255,255,0.18);
+  transition: background var(--transition), transform var(--transition);
+}
+.contact-link:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+
+/* ── FOOTER ─────────────────────────────────────── */
+footer {
+  background: var(--fg);
+  color: var(--fg3);
+  padding: 1.75rem 8%;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.82rem;
+  gap: 1rem;
+}
+.footer-brand {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--surface);
+}
+.footer-brand em { font-style: normal; color: var(--accent2); }
+
+/* ── REVEAL ──────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s, transform 0.55s;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ── ANIMACIONES ─────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; padding: 3.5rem 6% 3rem; min-height: auto; gap: 2rem; }
+  .hero-right { display: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .exp-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .exp-nav { position: static; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .exp-nav-item { padding: 0.5rem 0.85rem; }
+  .exp-nav-date { display: none; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .proj-card.wide, .proj-card.narrow, .proj-card.half { grid-column: span 1; }
+  .proj-header { flex-direction: column; gap: 0.75rem; }
+  section { padding: 3.5rem 6%; }
+  footer { flex-direction: column; text-align: center; gap: 0.5rem; }
+}
+@media (max-width: 600px) {
+  nav { padding: 0 5%; }
+  .nav-links { display: none; }
+  .about-values { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.5rem; }
+}
+</style>
 </head>
 <body>
 
-<!-- Cursor personalizado -->
 <div class="cursor" id="cursor"></div>
 
-<!-- ── NAV ── -->
-<nav>
-  <div class="nav-logo">Enzo<span>.</span></div>
-  <div class="nav-links">
-    <a href="#about">Sobre mí</a>
-    <a href="#proyectos">Proyectos</a>
-    <a href="#skills">Skills</a>
-    <a href="#experiencia">Experiencia</a>
-    <a href="#contacto">Contacto</a>
-  </div>
-  <a href="mailto:enzo_naccer@hotmail.com" class="nav-cta">Contactame →</a>
+<!-- ── NAV ───────────────────────────────────────── -->
+<nav id="main-nav">
+  <a href="#inicio" class="nav-logo">Enzo <em>Naccer</em></a>
+  <ul class="nav-links">
+    <li><a href="#about">Sobre mí</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experiencia">Experiencia</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="mailto:enzods.ux@gmail.com" class="nav-cta">Escribime →</a>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- ── HERO ──────────────────────────────────────── -->
 <section class="hero" id="inicio">
   <div class="hero-left">
-    <div class="hero-tag">Buenos Aires, Argentina · Disponible</div>
+    <div class="hero-tag">
+      <span class="hero-tag-dot"></span>
+      Buenos Aires · Disponible
+    </div>
 
-    <h1 class="hero-h1">
-      Product<br/>
-      &amp; Learning<br/>
+    <h1>
+      Product &amp;<br/>
+      Learning<br/>
       <em>Experience</em>
     </h1>
 
     <p class="hero-desc">
       Diseño productos digitales en la intersección entre
       <strong>educación</strong>, <strong>UX</strong> y <strong>tecnología</strong>.
-      Especialista en EdTech, accesibilidad digital y plataformas de aprendizaje.
+      Especialista en EdTech, plataformas LMS y accesibilidad digital.
     </p>
 
     <div class="hero-actions">
       <a href="#proyectos" class="btn-primary">Ver proyectos ↓</a>
-      <a href="CV_Enzo_Naccer_2026.pdf" class="btn-secondary" download>Descargar CV</a>
+      <a href="CV_Enzo_Naccer_2026.pdf" class="btn-outline" download>Descargar CV</a>
     </div>
 
     <div class="hero-stats">
       <div class="stat-item">
-        <span class="stat-num">6<span>+</span></span>
-        <span class="stat-label">Años de exp.</span>
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Años de experiencia</div>
       </div>
       <div class="stat-item">
-        <span class="stat-num">900<span>+</span></span>
-        <span class="stat-label">Participantes</span>
+        <div class="stat-num">900+</div>
+        <div class="stat-label">Participantes coordinados</div>
       </div>
       <div class="stat-item">
-        <span class="stat-num">3</span>
-        <span class="stat-label">Proyectos activos</span>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Proyectos activos</div>
       </div>
     </div>
   </div>
 
   <div class="hero-right">
-    <div class="hero-visual">
-      <div class="hero-grid"></div>
-      <div class="hero-card-floating">
-        <div class="card-label">Stack actual</div>
-        <div class="card-skills">
-          <span class="chip chip-blue">Product Design</span>
-          <span class="chip chip-pink">UX Research</span>
-          <span class="chip chip-green">EdTech</span>
-          <span class="chip chip-white">Figma</span>
-          <span class="chip chip-white">Moodle</span>
-          <span class="chip chip-blue">WCAG 2.1</span>
-          <span class="chip chip-pink">LXD</span>
-          <span class="chip chip-green">WordPress</span>
-          <span class="chip chip-white">WooCommerce</span>
-          <span class="chip chip-white">HTML · CSS · JS</span>
-        </div>
-        <div class="card-divider"></div>
-        <div class="card-role">Enzo Alejandro Naccer</div>
-        <div class="card-loc">
-          <span class="dot-live"></span>
-          Abierto a nuevas oportunidades
-        </div>
+    <div class="hero-card">
+      <div class="float-badge top">
+        <span class="badge-dot-green"></span> Disponible para proyectos
+      </div>
+      <div class="avatar-ring">EN</div>
+      <div class="hero-card-name">Enzo Alejandro Naccer</div>
+      <div class="hero-card-role">Product &amp; Learning Experience Specialist</div>
+      <div class="card-stats">
+        <div class="card-stat"><div class="n">6+</div><div class="l">años exp.</div></div>
+        <div class="card-stat"><div class="n">900+</div><div class="l">participantes</div></div>
+        <div class="card-stat"><div class="n">3</div><div class="l">proyectos</div></div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="card-chips">
+        <span class="card-chip">Product Design</span>
+        <span class="card-chip">UX/UI</span>
+        <span class="card-chip">EdTech</span>
+        <span class="card-chip">WCAG 2.1</span>
+        <span class="card-chip neutral">Figma</span>
+        <span class="card-chip neutral">Moodle</span>
+        <span class="card-chip neutral">LXD</span>
+      </div>
+      <div class="float-badge bot">
+        <span class="badge-dot-amber"></span> UTN · Tesis en redacción
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── SOBRE MÍ ── -->
+<!-- ── SOBRE MÍ ───────────────────────────────────── -->
 <section id="about">
   <div class="about-grid">
-    <div class="about-visual reveal">
-      <div class="about-box">
-        <div class="about-quote">
-          "El diseño de producto más valioso está en la <em>intersección</em> entre educación, accesibilidad y tecnología."
+    <div class="reveal">
+      <div class="about-quote-block">
+        <div class="quote-text">
+          "Penso como diseñador, ejecuto como desarrollador y comunico como docente."
         </div>
-        <div class="about-tag-row">
-          <span class="chip chip-blue">EdTech</span>
-          <span class="chip chip-pink">Accesibilidad</span>
-          <span class="chip chip-green">UX/UI</span>
-          <span class="chip chip-white">LXD</span>
-          <span class="chip chip-white">Product</span>
+        <div class="quote-chips">
+          <span class="quote-chip">EdTech</span>
+          <span class="quote-chip">Accesibilidad</span>
+          <span class="quote-chip">UX/UI</span>
+          <span class="quote-chip">LXD</span>
+          <span class="quote-chip">Product</span>
+        </div>
+      </div>
+
+      <div class="about-certs" style="margin-top:2rem;">
+        <div class="cert-label">Formación & Certificaciones</div>
+        <div class="cert-item">
+          <div class="cert-bar"></div>
+          <div>
+            <div class="cert-title">Licenciatura en Tecnología Educativa</div>
+            <div class="cert-org">UTN Buenos Aires · Tesis en redacción</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-bar"></div>
+          <div>
+            <div class="cert-title">Diseño y Desarrollo de Sitios Web</div>
+            <div class="cert-org">Escuela Da Vinci · 2026</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-bar"></div>
+          <div>
+            <div class="cert-title">Diseño Gráfico Digital</div>
+            <div class="cert-org">Escuela Da Vinci · Finalizado</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-bar"></div>
+          <div>
+            <div class="cert-title">Certificación UX/UI</div>
+            <div class="cert-org">Google · 2025</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-bar"></div>
+          <div>
+            <div class="cert-title">Desarrollo Web – HTML, CSS, JS, Node.js</div>
+            <div class="cert-org">CoderHouse · 2021</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="about-content reveal">
-      <div class="section-tag">Sobre mí</div>
+    <div class="about-right reveal reveal-delay-1">
+      <div class="section-label">Sobre mí</div>
       <h2 class="section-title">Más de 6 años en la intersección de educación y producto</h2>
+
       <p class="about-text">
         Soy <b>Licenciado en Tecnología Educativa (UTN Buenos Aires)</b> y especialista en diseño de
         productos digitales. Mi carrera combina gestión de plataformas LMS, diseño UX/UI,
-        accesibilidad digital (WCAG) y desarrollo web.
+        accesibilidad digital (WCAG 2.1) y desarrollo web.
       </p>
       <p class="about-text">
         He transformado ecosistemas institucionales en plataformas educativas escalables para
@@ -918,87 +961,87 @@
         de negocio con experiencias de aprendizaje reales.
       </p>
       <p class="about-text">
-        Mi diferencial es <b>pensar como diseñador, ejecutar como desarrollador y comunicar como docente</b>.
+        Mi diferencial: la intersección entre <b>educación, producto y tecnología</b>.
+        Perfiles así son difíciles de encontrar en el mercado EdTech.
       </p>
+
       <div class="about-values">
-        <div class="value-item">
+        <div class="value-card">
           <div class="value-icon">🎯</div>
-          <div class="value-text"><b>Orientado al usuario</b>Diseño centrado en las necesidades reales de quien aprende</div>
+          <div class="value-title">Orientado al usuario</div>
+          <div class="value-desc">Diseño centrado en las necesidades reales de quien aprende</div>
         </div>
-        <div class="value-item">
+        <div class="value-card">
           <div class="value-icon">♿</div>
-          <div class="value-text"><b>Accesibilidad digital</b>WCAG 2.1, diseño inclusivo y auditorías</div>
+          <div class="value-title">Accesibilidad digital</div>
+          <div class="value-desc">WCAG 2.1, diseño inclusivo y auditorías de acceso</div>
         </div>
-        <div class="value-item">
+        <div class="value-card">
           <div class="value-icon">🔗</div>
-          <div class="value-text"><b>Visión sistémica</b>Producto, tecnología y negocio como un todo</div>
+          <div class="value-title">Visión sistémica</div>
+          <div class="value-desc">Producto, tecnología y negocio como un ecosistema</div>
         </div>
-        <div class="value-item">
+        <div class="value-card">
           <div class="value-icon">🚀</div>
-          <div class="value-text"><b>Ejecución end-to-end</b>De la idea al deploy, sin intermediarios</div>
+          <div class="value-title">Ejecución end-to-end</div>
+          <div class="value-desc">De la idea al deploy, con foco en resultados reales</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PROYECTOS ── -->
+<!-- ── PROYECTOS ──────────────────────────────────── -->
 <section id="proyectos">
-  <div class="projects-header reveal">
+  <div class="proj-header reveal">
     <div>
-      <div class="section-tag">Proyectos</div>
-      <h2 class="section-title">Trabajo reciente</h2>
+      <div class="section-label">Proyectos</div>
+      <h2 class="section-title">Trabajo destacado</h2>
     </div>
-    <p class="section-sub" style="max-width:340px; font-size:0.9rem;">
-      Casos reales de producto, plataformas educativas y experiencias digitales.
-    </p>
+    <p class="section-sub">Casos reales con impacto medible en plataformas educativas, e-commerce y experiencia de usuario.</p>
   </div>
 
   <div class="projects-grid">
 
-    <!-- Innova -->
     <div class="proj-card wide reveal">
-      <div class="proj-thumb proj-thumb-innova">
-        <div class="proj-thumb-pattern"></div>
-        <div class="proj-thumb-icon">🎓</div>
+      <div class="proj-thumb thumb-green">
+        <span class="proj-thumb-text">Innova</span>
         <span class="proj-badge badge-live">● Live</span>
       </div>
       <div class="proj-body">
-        <div class="proj-category">EdTech · Product Design · LMS</div>
+        <div class="proj-role">Product & Learning Platform Lead</div>
         <h3 class="proj-title">Innova — Plataforma Educativa</h3>
         <p class="proj-desc">
-          Transformación de un sitio institucional en una plataforma comercial de formación online.
-          Diseño de la arquitectura UX de compra y aprendizaje para +500 participantes.
-          Integración de pagos duales (PayPal/USD · Payway/ARS), optimización de accesibilidad WCAG
-          y performance. Definición de flujos de inscripción, acceso y certificación.
+          Transformé un sitio institucional en una plataforma comercial de formación online.
+          Diseño de arquitectura UX de inscripción, compra y aprendizaje para +500 participantes.
+          Integración de pagos duales (PayPal/USD · Payway/ARS) eliminando fricción cambiaria.
+          Optimización de accesibilidad WCAG y performance con LiteSpeed.
         </p>
         <div class="proj-footer">
           <div class="proj-tags">
             <span class="proj-tag">WordPress</span>
-            <span class="proj-tag">Tutor LMS</span>
+            <span class="proj-tag">Tutor LMS Pro</span>
             <span class="proj-tag">UX Design</span>
             <span class="proj-tag">Pagos</span>
             <span class="proj-tag">WCAG</span>
           </div>
-          <a href="https://trabajosocial.ar" target="_blank" class="proj-link">↗</a>
+          <a href="https://trabajosocial.ar" target="_blank" class="proj-link-btn">Ver proyecto →</a>
         </div>
       </div>
     </div>
 
-    <!-- Mates Alonso -->
-    <div class="proj-card narrow reveal">
-      <div class="proj-thumb proj-thumb-mates">
-        <div class="proj-thumb-pattern"></div>
-        <div class="proj-thumb-icon">🧉</div>
+    <div class="proj-card narrow reveal reveal-delay-1">
+      <div class="proj-thumb thumb-amber">
+        <span class="proj-thumb-text">Mates</span>
         <span class="proj-badge badge-live">● Live</span>
       </div>
       <div class="proj-body">
-        <div class="proj-category">E-commerce · Branding · UX</div>
-        <h3 class="proj-title">Mates Alonso</h3>
+        <div class="proj-role">Founder & Digital Product Designer</div>
+        <h3 class="proj-title">Mates Alonso — E-commerce</h3>
         <p class="proj-desc">
           Diseño integral de marca, identidad visual y e-commerce desde cero.
-          Arquitectura de información y UX de compra orientada a conversión,
-          gestión logística y experiencia postventa.
+          Arquitectura de información y UX de compra orientada a conversión
+          y gestión logística completa.
         </p>
         <div class="proj-footer">
           <div class="proj-tags">
@@ -1006,62 +1049,55 @@
             <span class="proj-tag">Branding</span>
             <span class="proj-tag">UX</span>
           </div>
-          <a href="https://matesalonso.com" target="_blank" class="proj-link">↗</a>
+          <a href="https://matesalonso.com" target="_blank" class="proj-link-btn">Ver proyecto →</a>
         </div>
       </div>
     </div>
 
-    <!-- Consejo -->
     <div class="proj-card half reveal">
-      <div class="proj-thumb proj-thumb-consejo">
-        <div class="proj-thumb-pattern"></div>
-        <div class="proj-thumb-icon">🏛️</div>
+      <div class="proj-thumb thumb-blue">
+        <span class="proj-thumb-text">CPGTS</span>
         <span class="proj-badge badge-edu">EdTech</span>
       </div>
       <div class="proj-body">
-        <div class="proj-category">LMS · Digital Learning · Gestión</div>
+        <div class="proj-role">Digital Learning & Experience Specialist</div>
         <h3 class="proj-title">Consejo Profesional — Ecosistema Digital</h3>
         <p class="proj-desc">
-          Administración y evolución del ecosistema digital institucional.
-          Coordinación de eventos virtuales e híbridos para hasta 900 participantes.
-          Diseño de experiencias de aprendizaje, gestión de campus virtual (Moodle)
-          y articulación entre docentes, tecnología y administración.
+          Administración del ecosistema digital institucional. Coordinación de eventos
+          virtuales e híbridos para hasta 900 participantes. Diseño de experiencias de
+          aprendizaje y gestión de campus virtual Moodle.
         </p>
         <div class="proj-footer">
           <div class="proj-tags">
             <span class="proj-tag">Moodle</span>
             <span class="proj-tag">LXD</span>
             <span class="proj-tag">Streaming</span>
-            <span class="proj-tag">Certificaciones</span>
           </div>
-          <a href="https://trabajo-social.org.ar" target="_blank" class="proj-link">↗</a>
+          <a href="https://trabajo-social.org.ar" target="_blank" class="proj-link-btn">Ver proyecto →</a>
         </div>
       </div>
     </div>
 
-    <!-- LXD/Tesis -->
-    <div class="proj-card half reveal">
-      <div class="proj-thumb proj-thumb-lxd">
-        <div class="proj-thumb-pattern"></div>
-        <div class="proj-thumb-icon">📐</div>
-        <span class="proj-badge badge-design">En progreso</span>
+    <div class="proj-card half reveal reveal-delay-1">
+      <div class="proj-thumb thumb-sage">
+        <span class="proj-thumb-text">UTN</span>
+        <span class="proj-badge badge-wip">En progreso</span>
       </div>
       <div class="proj-body">
-        <div class="proj-category">UX Research · Accesibilidad · Tesis</div>
+        <div class="proj-role">UX Research · Accesibilidad · Tesis</div>
         <h3 class="proj-title">Investigación en Accesibilidad Educativa</h3>
         <p class="proj-desc">
-          Investigación académica aplicada sobre accesibilidad digital en entornos
-          de formación online. Análisis de experiencias de usuario con criterios WCAG 2.1
-          en plataformas LMS. Tesis de Licenciatura en Tecnología Educativa — UTN Buenos Aires.
+          Investigación aplicada sobre accesibilidad digital en entornos de formación online.
+          Análisis de experiencias de usuario con criterios WCAG 2.1 en plataformas LMS.
+          Tesis de Licenciatura en Tecnología Educativa — UTN Buenos Aires.
         </p>
         <div class="proj-footer">
           <div class="proj-tags">
             <span class="proj-tag">WCAG 2.1</span>
             <span class="proj-tag">UX Research</span>
             <span class="proj-tag">LMS</span>
-            <span class="proj-tag">UTN</span>
           </div>
-          <span class="proj-link" style="cursor:default; opacity:0.4;">📄</span>
+          <span style="font-size:0.8rem; color:var(--fg3); font-family:var(--mono);">En redacción</span>
         </div>
       </div>
     </div>
@@ -1069,299 +1105,372 @@
   </div>
 </section>
 
-<!-- ── SKILLS ── -->
+<!-- ── SKILLS ─────────────────────────────────────── -->
 <section id="skills">
-  <div style="max-width:1100px; margin:0 auto;">
+  <div class="skills-inner">
     <div class="reveal">
-      <div class="section-tag">Skills</div>
-      <h2 class="section-title">Competencias & Herramientas</h2>
-      <p class="section-sub">Diseño, producto, tecnología educativa y desarrollo — integrados.</p>
+      <div class="section-label">Habilidades</div>
+      <h2 class="section-title">Stack técnico &amp; competencias</h2>
+      <p class="section-sub">Perfil híbrido que cubre diseño, producto, educación y tecnología — una combinación poco frecuente en el mercado.</p>
     </div>
 
-    <div class="skills-layout">
-      <div class="reveal">
-        <div class="skill-group">
-          <div class="skill-group-title">Product & UX</div>
-          <div class="skill-bars">
-            <div class="skill-row">
-              <div class="skill-meta"><span>Product Design</span><span class="skill-pct">90%</span></div>
-              <div class="skill-track"><div class="skill-fill" style="--w:0.90"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-meta"><span>UX Research</span><span class="skill-pct">82%</span></div>
-              <div class="skill-track"><div class="skill-fill" style="--w:0.82"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-meta"><span>Figma / Prototipado</span><span class="skill-pct">80%</span></div>
-              <div class="skill-track"><div class="skill-fill" style="--w:0.80"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-meta"><span>Accesibilidad WCAG</span><span class="skill-pct">85%</span></div>
-              <div class="skill-track"><div class="skill-fill" style="--w:0.85"></div></div>
-            </div>
-          </div>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-title"><span>🎨</span> Product &amp; UX</div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Product Design</span><span class="skill-pct">90%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.90"></div></div>
         </div>
-
-        <div class="skill-group">
-          <div class="skill-group-title">EdTech & LXD</div>
-          <div class="skill-bars">
-            <div class="skill-row">
-              <div class="skill-meta"><span>Learning Experience Design</span><span class="skill-pct">88%</span></div>
-              <div class="skill-track"><div class="skill-fill" style="--w:0.88"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-meta"><span>Moodle / Tutor LMS</span><span class="skill-pct">90%</span></div>
-              <div class="skill-track"><div class="skill-fill" style="--w:0.90"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-meta"><span>Instrucción digital</span><span class="skill-pct">85%</span></div>
-              <div class="skill-track"><div class="skill-fill" style="--w:0.85"></div></div>
-            </div>
-          </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>UX Research</span><span class="skill-pct">82%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.82"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Figma / Prototipado</span><span class="skill-pct">80%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.80"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Accesibilidad WCAG</span><span class="skill-pct">85%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.85"></div></div>
         </div>
       </div>
 
-      <div class="reveal">
-        <div class="skill-group">
-          <div class="skill-group-title">Desarrollo & Plataformas</div>
-          <div class="skill-bars">
-            <div class="skill-row">
-              <div class="skill-meta"><span>WordPress / WooCommerce</span><span class="skill-pct">92%</span></div>
-              <div class="skill-track"><div class="skill-fill" style="--w:0.92"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-meta"><span>HTML5 / CSS3</span><span class="skill-pct">85%</span></div>
-              <div class="skill-track"><div class="skill-fill" style="--w:0.85"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-meta"><span>JavaScript</span><span class="skill-pct">65%</span></div>
-              <div class="skill-track"><div class="skill-fill" style="--w:0.65"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-meta"><span>SEO & Analytics</span><span class="skill-pct">78%</span></div>
-              <div class="skill-track"><div class="skill-fill" style="--w:0.78"></div></div>
-            </div>
-          </div>
+      <div class="skill-group reveal reveal-delay-1">
+        <div class="skill-group-title"><span>🎓</span> EdTech &amp; LXD</div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Learning Experience Design</span><span class="skill-pct">88%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.88"></div></div>
         </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Moodle / Tutor LMS Pro</span><span class="skill-pct">90%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Instrucción digital</span><span class="skill-pct">85%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Google Classroom</span><span class="skill-pct">80%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.80"></div></div>
+        </div>
+      </div>
 
-        <div class="skills-tags-block">
-          <div class="skill-tag-title">Herramientas & Ecosistema</div>
-          <div class="tag-cloud">
-            <span class="tag-pill">Figma</span>
-            <span class="tag-pill">Make / n8n</span>
-            <span class="tag-pill">PayPal · Payway</span>
-            <span class="tag-pill">Google Analytics</span>
-            <span class="tag-pill">Meta Business</span>
-            <span class="tag-pill">Google Workspace</span>
-            <span class="tag-pill">LiteSpeed</span>
-            <span class="tag-pill">reCAPTCHA</span>
-            <span class="tag-pill">Office 365</span>
-            <span class="tag-pill">Google Classroom</span>
-          </div>
+      <div class="skill-group reveal reveal-delay-2">
+        <div class="skill-group-title"><span>💻</span> Desarrollo</div>
+        <div class="skill-item">
+          <div class="skill-label"><span>WordPress / WooCommerce</span><span class="skill-pct">92%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.92"></div></div>
         </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>HTML5 / CSS3</span><span class="skill-pct">85%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>JavaScript</span><span class="skill-pct">65%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.65"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>SEO &amp; Analytics</span><span class="skill-pct">78%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.78"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-group reveal reveal-delay-3">
+        <div class="skill-group-title"><span>⚙️</span> Herramientas</div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Make (automatización)</span><span class="skill-pct">70%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.70"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Google Analytics</span><span class="skill-pct">75%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.75"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Meta Business / RRSS</span><span class="skill-pct">80%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.80"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Liderazgo de proyectos</span><span class="skill-pct">90%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-w="0.90"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools-block reveal">
+      <div class="tools-label">Ecosistema de herramientas</div>
+      <div class="tools-cloud">
+        <span class="tool-pill">Figma</span>
+        <span class="tool-pill">Make / n8n</span>
+        <span class="tool-pill">PayPal · Payway · Mercado Pago</span>
+        <span class="tool-pill">LiteSpeed Cache</span>
+        <span class="tool-pill">Google Workspace</span>
+        <span class="tool-pill">Office 365</span>
+        <span class="tool-pill">reCAPTCHA</span>
+        <span class="tool-pill">Google Classroom</span>
+        <span class="tool-pill">Meta Business</span>
+        <span class="tool-pill">YouTube Live</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── EXPERIENCIA ── -->
+<!-- ── EXPERIENCIA ────────────────────────────────── -->
 <section id="experiencia">
-  <div style="max-width:1100px; margin:0 auto;">
-    <div class="reveal" style="margin-bottom:0.5rem;">
-      <div class="section-tag">Experiencia</div>
+  <div class="exp-inner">
+    <div class="reveal">
+      <div class="section-label">Experiencia</div>
       <h2 class="section-title">Trayectoria profesional</h2>
     </div>
 
-    <div class="timeline">
-
-      <div class="timeline-item">
-        <div class="timeline-dot">🚀</div>
-        <div class="tl-date">2025 – Actualidad</div>
-        <div class="tl-title">Product & Learning Platform Lead</div>
-        <div class="tl-company">Innova – Plataforma Educativa</div>
-        <p class="tl-desc">
-          Transformación de sitio institucional en plataforma comercial de formación online.
-          Diseño de arquitectura UX, integración de pagos duales y optimización de accesibilidad
-          para +500 participantes. Definición de flujos de inscripción, acceso y certificación.
-        </p>
-        <div class="tl-tags">
-          <span class="tl-tag">Product Design</span>
-          <span class="tl-tag">LMS</span>
-          <span class="tl-tag">UX/UI</span>
-          <span class="tl-tag">Pagos</span>
-          <span class="tl-tag">WCAG</span>
+    <div class="exp-grid">
+      <!-- Nav izquierda -->
+      <div class="exp-nav reveal">
+        <div class="exp-nav-item active" data-panel="innova">
+          <div class="exp-nav-dot"></div>
+          <span class="exp-nav-name">Innova</span>
+          <span class="exp-nav-date">2025–hoy</span>
+        </div>
+        <div class="exp-nav-item" data-panel="consejo">
+          <div class="exp-nav-dot"></div>
+          <span class="exp-nav-name">Consejo Profesional</span>
+          <span class="exp-nav-date">2020–hoy</span>
+        </div>
+        <div class="exp-nav-item" data-panel="utn">
+          <div class="exp-nav-dot"></div>
+          <span class="exp-nav-name">UTN FRBA</span>
+          <span class="exp-nav-date">2024–2025</span>
+        </div>
+        <div class="exp-nav-item" data-panel="mates">
+          <div class="exp-nav-dot"></div>
+          <span class="exp-nav-name">Mates Alonso</span>
+          <span class="exp-nav-date">2025–hoy</span>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="timeline-dot">🏛️</div>
-        <div class="tl-date">2020 – Actualidad</div>
-        <div class="tl-title">Digital Learning & Experience Specialist</div>
-        <div class="tl-company">Consejo Profesional de Graduados en Trabajo Social</div>
-        <p class="tl-desc">
-          Administración integral del ecosistema digital institucional. Coordinación de eventos
-          virtuales e híbridos para hasta 900 participantes. Diseño de experiencias de
-          aprendizaje para formación continua y articulación multidisciplinaria.
-        </p>
-        <div class="tl-tags">
-          <span class="tl-tag">Moodle</span>
-          <span class="tl-tag">LXD</span>
-          <span class="tl-tag">Streaming</span>
-          <span class="tl-tag">Gestión educativa</span>
-        </div>
-      </div>
+      <!-- Paneles derecha -->
+      <div class="exp-panels reveal reveal-delay-1">
 
-      <div class="timeline-item">
-        <div class="timeline-dot">🎓</div>
-        <div class="tl-date">Feb 2024 – Ago 2025</div>
-        <div class="tl-title">Profesor Universitario Asistente</div>
-        <div class="tl-company">Centro de e-Learning – UTN FRBA</div>
-        <p class="tl-desc">
-          Cátedra: Gestión de Recursos Digitales con Software Libre. Diseño de contenidos
-          y acompañamiento pedagógico en tecnologías educativas y entornos libres.
-        </p>
-        <div class="tl-tags">
-          <span class="tl-tag">Docencia</span>
-          <span class="tl-tag">EdTech</span>
-          <span class="tl-tag">Software Libre</span>
+        <div class="exp-panel active" id="panel-innova">
+          <div class="exp-panel-role">Product &amp; Learning Platform Lead</div>
+          <div class="exp-panel-company">Innova — Plataforma Educativa</div>
+          <div class="exp-panel-date">2025 – Actualidad</div>
+          <p class="exp-panel-desc">
+            Transformé un sitio institucional en una plataforma comercial de formación online,
+            definiendo la arquitectura completa de producto, UX y tecnología.
+          </p>
+          <ul class="exp-bullets">
+            <li>Diseñé la arquitectura UX de inscripción, compra y aprendizaje para +500 participantes.</li>
+            <li>Implementé pagos duales: PayPal/USD (mercado internacional) y Payway/ARS (local).</li>
+            <li>Optimicé accesibilidad (WCAG 2.1), performance (LiteSpeed) y flujos de certificación.</li>
+            <li>Definí la lógica de escalabilidad para crecimiento de usuarios y cursos.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Product Design</span>
+            <span class="exp-tag">LMS</span>
+            <span class="exp-tag">UX/UI</span>
+            <span class="exp-tag">Pagos</span>
+            <span class="exp-tag">WCAG</span>
+            <span class="exp-tag">WordPress</span>
+          </div>
         </div>
-      </div>
 
-      <div class="timeline-item">
-        <div class="timeline-dot">🧉</div>
-        <div class="tl-date">2025 – Actualidad</div>
-        <div class="tl-title">Founder & Digital Product Designer</div>
-        <div class="tl-company">Mates Alonso – E-commerce</div>
-        <p class="tl-desc">
-          Diseño integral de marca, identidad visual y e-commerce desde cero.
-          Arquitectura de información y UX de compra orientada a conversión y experiencia del cliente.
-        </p>
-        <div class="tl-tags">
-          <span class="tl-tag">Branding</span>
-          <span class="tl-tag">E-commerce</span>
-          <span class="tl-tag">UX</span>
-          <span class="tl-tag">WooCommerce</span>
+        <div class="exp-panel" id="panel-consejo">
+          <div class="exp-panel-role">Digital Learning &amp; Experience Specialist</div>
+          <div class="exp-panel-company">Consejo Profesional de Graduados en Trabajo Social</div>
+          <div class="exp-panel-date">2020 – Actualidad</div>
+          <p class="exp-panel-desc">
+            Administración integral del ecosistema digital institucional durante más de 6 años,
+            coordinando formación continua para profesionales del Trabajo Social.
+          </p>
+          <ul class="exp-bullets">
+            <li>Coordiné eventos virtuales e híbridos con hasta 900 participantes simultáneos.</li>
+            <li>Diseñé experiencias de aprendizaje para formación continua y certificaciones.</li>
+            <li>Articulé docentes, tecnología y administración desde planificación hasta facturación.</li>
+            <li>Implementé mejoras UX en campus virtual Moodle y flujos de acceso educativo.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Moodle</span>
+            <span class="exp-tag">LXD</span>
+            <span class="exp-tag">Streaming</span>
+            <span class="exp-tag">Gestión educativa</span>
+            <span class="exp-tag">UX</span>
+          </div>
         </div>
-      </div>
 
+        <div class="exp-panel" id="panel-utn">
+          <div class="exp-panel-role">Profesor Universitario Asistente</div>
+          <div class="exp-panel-company">Centro de e-Learning — UTN FRBA</div>
+          <div class="exp-panel-date">Febrero 2024 – Agosto 2025</div>
+          <p class="exp-panel-desc">
+            Docencia universitaria en tecnologías educativas digitales, acompañando el desarrollo
+            de competencias en gestión de software libre para futuros profesionales.
+          </p>
+          <ul class="exp-bullets">
+            <li>Cátedra: Gestión de Recursos Digitales con Software Libre.</li>
+            <li>Diseñé contenidos y materiales didácticos para entornos digitales.</li>
+            <li>Acompañé a estudiantes en el uso de herramientas tecnológicas libres.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Docencia</span>
+            <span class="exp-tag">EdTech</span>
+            <span class="exp-tag">Software Libre</span>
+            <span class="exp-tag">LXD</span>
+          </div>
+        </div>
+
+        <div class="exp-panel" id="panel-mates">
+          <div class="exp-panel-role">Founder &amp; Digital Product Designer</div>
+          <div class="exp-panel-company">Mates Alonso — E-commerce</div>
+          <div class="exp-panel-date">2025 – Actualidad</div>
+          <p class="exp-panel-desc">
+            Proyecto propio de e-commerce construido desde cero: desde la identidad visual
+            hasta la arquitectura de información y la experiencia de compra.
+          </p>
+          <ul class="exp-bullets">
+            <li>Diseñé la marca, identidad visual y estrategia comercial completa.</li>
+            <li>Desarrollé el e-commerce con WooCommerce orientado a conversión.</li>
+            <li>Gestioné catálogo de productos, logística de envíos y experiencia postventa.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Branding</span>
+            <span class="exp-tag">E-commerce</span>
+            <span class="exp-tag">UX</span>
+            <span class="exp-tag">WooCommerce</span>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── CONTACTO ── -->
+<!-- ── CONTACTO ───────────────────────────────────── -->
 <section id="contacto">
-  <div class="contact-inner">
-    <div class="reveal">
-      <div class="section-tag">Contacto</div>
-      <h2 class="section-title">¿Trabajamos juntos?</h2>
-      <p class="section-sub">
-        Estoy abierto a roles de Product Designer, Product Specialist, LMS Specialist
-        y Learning Experience Designer. Si tenés un proyecto interesante, hablemos.
-      </p>
-      <a href="mailto:enzo_naccer@hotmail.com" class="contact-email">
-        enzo_naccer@hotmail.com
+  <div class="contact-inner reveal">
+    <div class="section-label">Contacto</div>
+    <h2 class="section-title">¿Trabajamos juntos?</h2>
+    <p class="contact-desc">
+      Estoy abierto a roles de Product Designer, Product Specialist, LMS Specialist
+      y Learning Experience Designer en el ecosistema EdTech.
+      Si tenés un proyecto interesante, hablemos.
+    </p>
+    <a href="mailto:enzods.ux@gmail.com" class="contact-email-link">
+      enzods.ux@gmail.com
+    </a>
+    <div class="contact-links">
+      <a href="https://linkedin.com/in/enzo-naccer" target="_blank" class="contact-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        LinkedIn
       </a>
-      <div class="contact-links">
-        <a href="https://linkedin.com/in/enzo-naccer" target="_blank" class="contact-link">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-          </svg>
-          LinkedIn
-        </a>
-        <a href="https://github.com" target="_blank" class="contact-link">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-          </svg>
-          GitHub
-        </a>
-        <a href="CV_Enzo_Naccer_2026.pdf" download class="contact-link">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-          </svg>
-          Descargar CV
-        </a>
-      </div>
+      <a href="https://github.com/enzonaccer" target="_blank" class="contact-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+        GitHub
+      </a>
+      <a href="tel:+541156395293" class="contact-link">
+        📞 +54 11 5639-5293
+      </a>
+      <a href="CV_Enzo_Naccer_2026.pdf" download class="contact-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+        </svg>
+        Descargar CV
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- ── FOOTER ─────────────────────────────────────── -->
 <footer>
-  <div class="footer-brand">Enzo<em>.</em></div>
-  <span>© 2026 Enzo Alejandro Naccer · Buenos Aires, Argentina</span>
-  <span>Product & Learning Experience Specialist</span>
+  <div class="footer-brand">Enzo <em>Naccer</em></div>
+  <span>© 2026 · Buenos Aires, Argentina</span>
+  <span>Product &amp; Learning Experience Specialist</span>
 </footer>
 
 <script>
-  // ── Cursor ─────────────────────────────────────────────────
-  const cursor = document.getElementById('cursor');
-  let mx = 0, my = 0;
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX - 6;
-    my = e.clientY - 6;
-    cursor.style.transform = `translate(${mx}px, ${my}px)`;
+// ── Cursor ──────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.transform = `translate(${e.clientX - 5}px, ${e.clientY - 5}px)`;
+});
+document.querySelectorAll('a, button, .proj-card, .value-card, .exp-nav-item, .tool-pill').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
+});
+
+// ── Nav scrolled ────────────────────────────────────
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// ── Active nav links ────────────────────────────────
+const sections = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.nav-links a');
+const onScroll = () => {
+  let cur = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 90) cur = s.id;
   });
-  document.querySelectorAll('a, button, .proj-card').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
+  navAs.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === `#${cur}`);
   });
+};
+window.addEventListener('scroll', onScroll, { passive: true });
 
-  // ── Intersection Observer — reveal ─────────────────────────
-  const revealEls = document.querySelectorAll('.reveal');
-  const timelineItems = document.querySelectorAll('.timeline-item');
-  const skillFills = document.querySelectorAll('.skill-fill');
-
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  revealEls.forEach(el => obs.observe(el));
-
-  const tlObs = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 150);
-        tlObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  timelineItems.forEach(el => tlObs.observe(el));
-
-  // Skill bars animation
-  const skillObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        document.querySelectorAll('.skill-fill').forEach((fill, i) => {
-          setTimeout(() => fill.classList.add('animated'), i * 120);
-        });
-        skillObs.disconnect();
-      }
-    });
-  }, { threshold: 0.3 });
-
-  const skillsSection = document.getElementById('skills');
-  if (skillsSection) skillObs.observe(skillsSection);
-
-  // ── Smooth active nav ──────────────────────────────────────
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
-    });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === `#${current}`
-        ? 'var(--accent)' : '';
-    });
+// ── Reveal on scroll ────────────────────────────────
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
   });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ── Skill bars ──────────────────────────────────────
+const skillObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.skill-fill').forEach((fill, i) => {
+        const w = fill.dataset.w || '0.5';
+        setTimeout(() => {
+          fill.style.width = (parseFloat(w) * 100) + '%';
+          fill.classList.add('on');
+        }, i * 80);
+      });
+      skillObs.disconnect();
+    }
+  });
+}, { threshold: 0.2 });
+const skillsSection = document.getElementById('skills');
+if (skillsSection) skillObs.observe(skillsSection);
+
+// ── Experience tabs ─────────────────────────────────
+document.querySelectorAll('.exp-nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const panel = item.dataset.panel;
+    document.querySelectorAll('.exp-nav-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.exp-panel').forEach(p => p.classList.remove('active'));
+    item.classList.add('active');
+    const target = document.getElementById(`panel-${panel}`);
+    if (target) {
+      target.classList.add('active');
+      // fade sutil
+      target.style.opacity = '0';
+      target.style.transform = 'translateY(8px)';
+      requestAnimationFrame(() => {
+        target.style.transition = 'opacity 0.3s, transform 0.3s';
+        target.style.opacity = '1';
+        target.style.transform = 'translateY(0)';
+      });
+    }
+  });
+});
 </script>
 
 </body>
